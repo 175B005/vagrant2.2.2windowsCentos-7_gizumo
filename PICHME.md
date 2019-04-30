@@ -1,5 +1,8 @@
-# vagrant 環境　version2.2.2 Centos/7 
+# vagrant 環境構築
+### 　OS：version2.2.2 Centos/7 
 ### 対象：Gizumo研修用windowsの方
+
+---
 
 ## 手順
 
@@ -9,3 +12,6 @@
 
 - まず[box package]()をダウンロードする。（作業したいディレクトリに配置する。）
 - 
+
+
+---
