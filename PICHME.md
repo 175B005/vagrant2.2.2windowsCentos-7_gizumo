@@ -2,6 +2,9 @@
 ### 　OS：version2.2.2 Centos/7 
 ### 対象：Gizumo研修用windowsの方
 
+### 掲載期間：GW明けまで。（研修ではあるが、一応
+（バック部屋の方への説明用）（一般説明はないと思うが、あればこれを改良して出す。）
+
 ---
 
 ## 手順
@@ -12,8 +15,10 @@
 
 ポート、IPアドレスの設定などを確認してください。version も注意です。vagrant 2.2.4未確認
 
-- まず[box package](https://drive.google.com/open?id=18jG-eFrzcU0MtUAHnrTZULm6gJXtwC8r)をダウンロードする。１GB注意（作業したいディレクトリに配置する。）
+#### まず[box package](https://drive.google.com/open?id=18jG-eFrzcU0MtUAHnrTZULm6gJXtwC8r)をダウンロードする。１GB注意（作業したいディレクトリに配置する。）
 - コマンドライン（Cmnder他）を開き、作業ディレクトリに行く。
+
+---
 
 ```
 作業ディレクトリ>vagrant -v
@@ -33,8 +38,9 @@ then the machine is not created for that environment.
 作業ディレクトリ>ls
 package.box //これ一つあればOK。
 ```
+---
 
-- 次にパッケージからboxを作成する　(任意の名前を付けて、boxを作る)
+#### 次にパッケージからboxを作成する　(任意の名前を付けて、boxを作る)
 
 「vagrant box add 好きな名前 package.box」
 
@@ -56,7 +62,9 @@ ishiduki (virtualbox, 0)　　　//今作ったbox
 このbox作成はすぐに終わります。
 カリキュラムでは外部リンクからロードしながらなので、時間がかかっていました。
 
-- vagrant init で設定ファイルを作る (boxの名前はさっき作ったやつ)
+---
+
+#### vagrant init で設定ファイルを作る (boxの名前はさっき作ったやつ)
 
 ```
 作業ディレクトリ>vagrant init ishiduki    
@@ -77,7 +85,9 @@ config.vm.network "private_network", ip: "192.168.33.10"
 ```
 一応、上のboxNameも、自分の作ったbox名になってるか確認してね。
 
-- いよいよ、開始です。
+---
+
+#### いよいよ、開始です。
 
 ```
 作業ディレクトリ>vagrant up
@@ -133,12 +143,12 @@ The error output from the command was:
 
 mount: unknown filesystem type 'vboxsf'
 
-
-
 ```
 ここでこけたら、boxない問題か、port使われてる問題の類だと思われる。。
 
-- 無事起動できたか確認
+---
+
+#### 無事起動できたか確認
 
 ```
 作業ディレクトリ>vagrant status
@@ -154,7 +164,10 @@ simply run `vagrant up`.
 作業ディレクトリ>
 
 ```
-よっしゃ。では接続...
+
+---
+
+#### よっしゃ。では接続...
 ```
 作業ディレクトリ>vagrant ssh
 Last login: Mon Apr 29 10:59:01 2019 from 10.0.2.2
@@ -170,7 +183,9 @@ username:vagrant(up時に書いてあるSSH username: *******)
 
 で接続ができる。ハズ。。（パスワードは初期はvagrantだったと思う。）
 
-- ここで、ちゃんとプロジェクトが入っているか確認。
+---
+
+#### ここで、ちゃんとプロジェクトが入っているか確認。
 ```
 [vagrant@localhost ~]$ ls
 giz  remi-release-7.rpm
@@ -182,7 +197,9 @@ gizlog環境構築の段階まで終わっているので、
 
 何がインストールされてるかだけ、しっかりとチケットを見ておく
 
-- では最後に、サービスを起動して終了。
+---
+
+#### では最後に、サービスを起動して終了。
 ```
 sudo systemctl start nginx
 sudo systemctl start php-fpm
@@ -200,9 +217,33 @@ Bye
 - slackにログイン。
 - gizlogのhome にリダイレクトで遷移したら、起動完了！！
 
+---
+
 migrateでこける場合。
+```
+[vagrant@localhost ~]composer install
+//でもダメなら
+[vagrant@localhost ~]php artisan dump-autoload
 
+```
+アクセスができない場合
+- シークレットウィンドウで試す。
+- sudo systemctl restart nginx
 
+---
+
+#### 最後に
+
+これで環境構築は終わりです。エラーの場合はその情報とともに連絡を。
+チケットで構築する内容は完成ですが、何をしたかわからないと思いますので、
+GW開けに構築の流れを復習します。
+今回のうまくいかない主な原因は、アクセス権限です。
+中に入っているファイルのうち、
+主に３つのファイル（ディレクトリ含むと大量に権限を変更しましたが、必要なのを抜粋）の権限を変更しました。
+
+- session関係
+- AuthUser関係
+- laravel.logログファイル
 
 
 ---
