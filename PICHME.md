@@ -17,7 +17,7 @@
 
 ```js
 
- vagrant -v
+     vagrant -v
 
 ```
 
