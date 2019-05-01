@@ -245,5 +245,37 @@ GW開けに構築の流れを復習します。
 - AuthUser関係
 - laravel.logログファイル
 
+---
+
+#### テキストエディターを使用可能にする
+
+[これ](https://www.youtube.com/watch?v=BmoqDiFVoq4)を見ながらやってください。
+
+環境構築（上記）でやった後にやること。。
+やらなくても、viでできるんですが、それでもいいなら別に大丈夫です。
+ファイル消えちゃったりしたら、やり直しになるので、ファイル名とか注意です。
+動画と同じにすれば大丈夫です。
+
+```
+//Vagrantfile内に追加endの前に追加してください。
+config.vm.synced_folder "./dev_gizlog", "/home/vagrant/giz/dev_gizlog2",
+:nfs => true,
+:linux__nfs_options => ['rw','no_subtree_check','all_squash','async']
+```
+
+
+vagrant status 
+power ohh状態でこれをインストールする。１０分くらいかかるかも。。？
+
+```
+vagrant plugin install vagrant-vbguest
+```
+
+インストールができたらvagrant upで起動。これも少し時間がかかるようになるので、注意。
+ここでこける場合はvagrantfileがちゃんとできていない可能性があるので、見直し。。
+それでもだめなら、聞いて！
+
+
+
 
 ---
